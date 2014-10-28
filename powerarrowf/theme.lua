@@ -74,9 +74,10 @@ theme.titlebar_maximized_button_normal_active = "/usr/share/awesome/themes/defau
 theme.titlebar_maximized_button_focus_active  = "/usr/share/awesome/themes/default/titlebar/maximized_focus_active.png"
 
 --theme.wallpaper = pathToConfig .. "powerarrowf/candy_bean_wallpaper.jpg"
-theme.wallpaper = pathToConfig .. "redtree_edit.jpg"
+--theme.wallpaper = pathToConfig .. "redtree_edit.jpg"
 --theme.wallpaper = pathToConfig .. "mountain1.jpg"
 --theme.wallpaper = pathToConfig .. "cubes.jpg"
+theme.wallpaper = pathToConfig .. "whitePoly.jpg"
 
 -- You can use your own layout icons like this:
 theme.layout_floating  = pathToConfig .. "powerarrowf/layouts/floating.png"
@@ -140,5 +141,8 @@ theme.brightness = pathToConfig .. "icons/brightness.png"
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
 theme.icon_theme = nil
+
+-- Lain
+theme.useless_gap_width = 10
 
 return theme

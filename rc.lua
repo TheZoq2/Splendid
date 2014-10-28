@@ -11,10 +11,19 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local vicious = require("vicious")
+local lain = require("lain")
 
 --Vain
-local vain = require("vain")
-vain.widgets.terminal = "terminator"
+--local vain = require("vain")
+--vain.widgets.terminal = "terminator"
+
+lain.layout.termfair.nmaster = 2
+lain.layout.termfair.ncol = 1
+
+lain.layout.cascadetile.cascade_offset_x = 2
+lain.layout.cascadetile.cascade_offset_y = 32
+lain.layout.cascadetile.extra_padding = 5
+lain.layout.cascadetile.nmaster = 5
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -94,11 +103,12 @@ awful.util.spawn("setxkbmap -option caps:Mod4")
 local layouts =
 {
     awful.layout.suit.floating,
+    --lain.layout.cascadetile,
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.top,
-    vain.layout.termfair
+    lain.layout.termfair
 }
 -- }}}
 
