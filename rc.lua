@@ -50,6 +50,16 @@ do
 end
 -- }}}
 
+--Overriding awesome quit function if awesome-gnome is used
+_awesome_quit = awesome.quit
+awesome.quit = function()
+    if os.getenv("DESKTOP_SESSION") == "awesome-gnome" then
+        os.execute("/usr/bin/gnome-session-quit")
+    else
+        _awesome_quit()
+    end
+end
+
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
 
@@ -521,6 +531,9 @@ globalkeys = awful.util.table.join(
             if(client.focus) then client.focus:raise() end
         end),
 
+    awful.key({modkey}, "F1", function() awful.screen.focus(2) end),
+    awful.key({modkey}, "F2", function() awful.screen.focus(1) end),
+
     --Run menu
     awful.key({modkey}, "r", function() mypromptbox[mouse.screen]:run() end),
 
@@ -723,6 +736,8 @@ client.connect_signal("manage", function (c, startup)
         awful.titlebar(c):set_widget(layout)
     end
 end)
+
+
 
 -- {{ Function to ensure that certain programs only have one
 -- instance of themselves when i restart awesome
