@@ -2,6 +2,9 @@
 -- Default awesome theme --
 ---------------------------
 
+require("style")
+
+
 theme = {}
 
 -- Todo:  Change the $USER to yourself.
@@ -22,6 +25,8 @@ theme.border_width  = 1
 theme.border_normal = "#000000"
 theme.border_focus  = "#535d6c"
 theme.border_marked = "#91231c"
+theme.border_normal = style.foregroundUnfocus
+theme.border_focus = style.foregroundMain
 
 -- There are other variable sets
 -- overriding the default one when

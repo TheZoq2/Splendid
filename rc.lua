@@ -13,6 +13,7 @@ local menubar = require("menubar")
 local vicious = require("vicious")
 local lain = require("lain")
 require("style")
+require("keys")
 
 --Vain
 --local vain = require("vain")
@@ -83,6 +84,7 @@ fileBrowser = "nautilus"
 font = "Inconsolata 11"
 
 -- {{ These are the power arrow dividers/separators }} --
+--[[
 arr1 = wibox.widget.imagebox()
 arr1:set_image(beautiful.arr1)
 arr2 = wibox.widget.imagebox()
@@ -101,7 +103,25 @@ arr8 = wibox.widget.imagebox()
 arr8:set_image(beautiful.arr8)
 arr9 = wibox.widget.imagebox()
 arr9:set_image(beautiful.arr9)
-
+]]--
+arr1 = wibox.widget.imagebox()
+arr1:set_image(style.arr1)
+arr2 = wibox.widget.imagebox()
+arr2:set_image(style.arr1)
+arr3 = wibox.widget.imagebox()
+arr3:set_image(style.arr1)
+arr4 = wibox.widget.imagebox()
+arr4:set_image(style.arr1)
+arr5 = wibox.widget.imagebox()
+arr5:set_image(style.arr1)
+arr6 = wibox.widget.imagebox()
+arr6:set_image(style.arr1)
+arr7 = wibox.widget.imagebox()
+arr7:set_image(style.arr1)
+arr8 = wibox.widget.imagebox()
+arr8:set_image(style.arr1)
+arr9 = wibox.widget.imagebox()
+arr9:set_image(style.arr1)
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -176,7 +196,7 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 
 --{{-- Time and Date Widget }} --
 tdwidget = wibox.widget.textbox()
-local strf = '<span font="' .. font .. '" color="' .. style.foreground_main .. '" background="' .. style.background_color .. '">%b %d %H:%M</span>'
+local strf = '<span font="' .. font .. '" color="' .. style.foregroundMain .. '" background="' .. style.backgroundColor .. '">%b %d %H:%M</span>'
 vicious.register(tdwidget, vicious.widgets.date, strf, 20)
 
 clockicon = wibox.widget.imagebox()
@@ -193,7 +213,7 @@ vicious.register(netwidget, vicious.widgets.net, function(widget, args)
     else
         return ""
     end
-    return '<span background="#C2C2A4" font="Inconsolata 11"> <span font ="Inconsolata 11" color="#FFFFFF">'..args["{"..interface.." down_kb}"]..'kbps'..'</span></span>' end, 10)
+    return '<span background="' .. style.backgroundColor .. '" font="Inconsolata 11"> <span font ="Inconsolata 11" color="' .. style.foregroundMain .. '">'..args["{"..interface.." down_kb}"]..'kbps'..'</span></span>' end, 10)
 
 
 ---{{---| Wifi Signal Widget |-------
@@ -215,13 +235,13 @@ baticon = wibox.widget.imagebox()
 baticon:set_image(beautiful.baticon)
 
 batwidget = wibox.widget.textbox()
-vicious.register( batwidget, vicious.widgets.bat, '<span background="#92B0A0" font="Inconsolata 11"><span font="Inconsolata 11" color="#FFFFFF" background="#92B0A0">$1$2% </span></span>', 30, "BAT1" )
+vicious.register( batwidget, vicious.widgets.bat, '<span background="' .. style.backgroundColor .. '" font="Inconsolata 11"><span font="Inconsolata 11" color="' .. style.foregroundMain .. '" background="' .. style.backgroundColor .. '">$1$2% </span></span>', 30, "BAT1" )
 
 --{{---| File Size widget |-----
 fswidget = wibox.widget.textbox()
 
 vicious.register(fswidget, vicious.widgets.fs,
-'<span background="#D0785D" font="Inconsolata 11"> <span font="Inconsolata 11" color="#EEEEEE">${/home used_gb}/${/home avail_gb} GB </span></span>', 
+'<span background="' .. style.backgroundColor .. '" font="Inconsolata 11"> <span font="Inconsolata 11" color="' .. style.foregroundMain .. '">${/home used_gb}/${/home avail_gb} GB </span></span>', 
 800)
 
 fsicon = wibox.widget.imagebox()
@@ -230,7 +250,7 @@ fsicon:set_image(beautiful.fsicon)
 ----{{--| Volume / volume icon |----------
 volume = wibox.widget.textbox()
 vicious.register(volume, vicious.widgets.volume,
-'<span background="#4B3B51" font="Inconsolata 11"><span font="Inconsolata 11" color="#EEEEEE"> Vol:$1 </span></span>', 0.3, "Master")
+'<span background="' .. style.backgroundColor .. '" font="Inconsolata 11"><span font="Inconsolata 11" color="' .. style.foregroundMain .. '"> Vol:$1 </span></span>', 0.3, "Master")
 
 volumeicon = wibox.widget.imagebox()
 vicious.register(volumeicon, vicious.widgets.volume, function(widget, args)
@@ -253,7 +273,7 @@ end, 0.3, "Master")
 --{{---| CPU / sensors widget |-----------
 cpuwidget = wibox.widget.textbox()
 vicious.register(cpuwidget, vicious.widgets.cpu,
-'<span background="#4B696D" font="Inconsolata 11"> <span font="Inconsolata 11" color="#DDDDDD">$2%<span color="#888888">·</span>$3% </span></span>', 5)
+'<span background="' .. style.backgroundColor .. '" font="Inconsolata 11"> <span font="Inconsolata 11" color="' .. style.foregroundMain .. '">$2%<span color="' .. style.foregroundMain .. '">·</span>$3% </span></span>', 5)
 
 cpuicon = wibox.widget.imagebox()
 cpuicon:set_image(beautiful.cpuicon)
@@ -261,7 +281,7 @@ cpuicon:set_image(beautiful.cpuicon)
 --{{--| MEM widget |-----------------
 memwidget = wibox.widget.textbox()
 
-vicious.register(memwidget, vicious.widgets.mem, '<span background="#777E76" font="Inconsolata 11"> <span font="Inconsolata 11" color="#EEEEEE" background="#777E76">$2MB </span></span>', 20)
+vicious.register(memwidget, vicious.widgets.mem, '<span background="' .. style.backgroundColor .. '" font="Inconsolata 11"> <span font="Inconsolata 11" color="' .. style.foregroundMain .. '" background="' .. style.backgroundColor .. '">$2MB </span></span>', 20)
 memicon = wibox.widget.imagebox()
 memicon:set_image(beautiful.mem)
 
@@ -313,9 +333,9 @@ function () awful.util.spawn_with_shell(browser .. " gmail.com") end)))
 --Brightness
 brightnessWidget = wibox.widget.textbox();
 brightnessBgWidget = wibox.widget.background();
-brightnessBgWidget:set_bg("#D0785D")
+brightnessBgWidget:set_bg(style.backgroundColor)
 brightnessBgWidget:set_widget(brightnessWidget)
-brightnessBgWidget:set_fg("#ffffff")
+brightnessBgWidget:set_fg(style.foregroundMain)
 brightnessIcon = wibox.widget.imagebox()
 brightnessIcon:set_image(beautiful.brightness)
 
@@ -325,12 +345,16 @@ function getBrightness()
     local brightStr = handle:read("*a")
     handle:close()
     --Strip the decimals
-    brightVal = math.ceil(tonumber(brightStr))
+    if(not brightVal == nil) then
+        brightVal = math.ceil(tonumber(brightStr))
+    end
     
     return brightVal
 end
 function updateBrightnessWidget()
-    brightnessWidget:set_text("" .. getBrightness() .. " ");
+    if(not getBrightness() == nil) then
+        brightnessWidget:set_text("" .. getBrightness() .. " ");
+    end
 end
 function changeBrightness(amount)
     flag = "-inc"
@@ -366,8 +390,10 @@ end
 tempWidget = wibox.widget.textbox()
 tempBgWidget = wibox.widget.background()
 tempBgWidget:set_widget(tempWidget)
-tempBgWidget:set_bg("#4B696D")
-tempBgWidget:set_fg("#DDDDDD")
+--tempBgWidget:set_bg("#4B696D")
+--tempBgWidget:set_fg("#DDDDDD")
+tempBgWidget:set_bg(style.backgroundColor)
+tempBgWidget:set_fg(style.foregroundMain)
 
 function updateTempWidget()
     tempWidget:set_text("" .. getTemp() .. " ")
@@ -460,32 +486,32 @@ for s = 1, screen.count() do
     if s == 1 then right_layout:add(wibox.widget.systray()) end
 
     right_layout:add(kbdLayoutWidget)
-    right_layout:add(arr9)
+    --right_layout:add(arr9)
     --right_layout:add(mailicon)
     right_layout:add(arr8)
-    right_layout:add(memicon)
+    --right_layout:add(memicon)
     right_layout:add(memwidget)
     right_layout:add(arr7)
-    right_layout:add(cpuicon)
+    --right_layout:add(cpuicon)
     right_layout:add(cpuwidget)
     right_layout:add(tempBgWidget)
     right_layout:add(arr6)
-    right_layout:add(volumeicon)
+    --right_layout:add(volumeicon)
     right_layout:add(volume)
     right_layout:add(arr5)
-    right_layout:add(brightnessIcon)
+    --right_layout:add(brightnessIcon)
     right_layout:add(brightnessBgWidget)
     right_layout:add(arr4)
     --right_layout:add(fsicon)
     --right_layout:add(fswidget)
     --right_layout:add(kbdcfg);
-    right_layout:add(baticon)
+    --right_layout:add(baticon)
     right_layout:add(batwidget)
     right_layout:add(arr3)
-    right_layout:add(neticon)
+    --right_layout:add(neticon)
     right_layout:add(netwidget)
     right_layout:add(arr2)
-    right_layout:add(clockicon)
+    --right_layout:add(clockicon)
     right_layout:add(tdwidget)
     right_layout:add(arr1)
     right_layout:add(mylayoutbox[s])
@@ -509,6 +535,7 @@ root.buttons(awful.util.table.join(
 --Also binding the right click menu to a key
 globalkeys = awful.util.table.join(
     awful.key({"Control",}, "`", function() mymainmenu:toggle() end),
+    awful.key({"Control",}, keys.openMenu, function() mymainmenu:toggle() end),
     
     --Vim like controlls
     awful.key({modkey, }, "l",
