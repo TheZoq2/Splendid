@@ -135,11 +135,13 @@ local layouts =
 {
     awful.layout.suit.floating,
     --lain.layout.cascadetile,
-    awful.layout.suit.tile,
-    awful.layout.suit.tile.left,
-    awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.top,
-    lain.layout.termfair
+    lain.layout.uselesstile,
+    lain.layout.uselessfair,
+    lain.layout.termfair,
+    awful.layout.suit.tile
+    --awful.layout.suit.tile.left,
+    --awful.layout.suit.tile.bottom,
+    --awful.layout.suit.tile.top,
 }
 -- }}}
 
@@ -190,6 +192,9 @@ mylauncher = awful.widget.launcher({ menu = mymainmenu })
 
 -- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
+menubar.menu_gen.all_menu_dirs = { "/usr/share/applications/", "/usr/local/share/applications", "~/.local/share/applications" }
+
+
 -- }}}
 
 -- {{{ Wibox
@@ -298,9 +303,12 @@ vicious.register(mailicon, vicious.widgets.gmail, function(widget, args)
 end, 15)
 
 --keyboard layout
-kbdLayoutWidget = wibox.widget.textbox();
+kbdLayoutWidget = wibox.widget.background();
+kbdLayoutText = wibox.widget.textbox();
+kbdLayoutWidget:set_widget(kbdLayoutText)
+kbdLayoutWidget:set_fg(style.foregroundMain)
 --kbdLayoutWidget:set_text('<span background="#777E76" font="Inconsolata 11"> <span font="Inconsolata 11" color="#EEEEEE" background="#777E76">$2MB </span></span>')
-kbdLayoutWidget:set_text('us')
+kbdLayoutText:set_text('us')
 
 keyboardLayout = {}
 keyboardLayout.cmd = "setxkbmap"
@@ -310,7 +318,7 @@ keyboardLayout.set = function(index)
         keyboardLayout.current = index
         os.execute(keyboardLayout.cmd .. " " .. keyboardLayout.layouts[index])
         
-        kbdLayoutWidget:set_text(" " .. keyboardLayout.layouts[index] .. " ")
+        kbdLayoutText:set_text(" " .. keyboardLayout.layouts[index] .. " ")
     end
 keyboardLayout.cycle = function()
         nLayout = keyboardLayout.current + 1
@@ -395,7 +403,7 @@ tempBgWidget:set_widget(tempWidget)
 tempBgWidget:set_bg(style.backgroundColor)
 tempBgWidget:set_fg(style.foregroundMain)
 
-function updateTempWidget()
+function updateTempWidget()pp_folders = { "/usr/share/applications/", "~/.local/share/applications/" }
     tempWidget:set_text("" .. getTemp() .. " ")
 end
 updateTempWidget()
@@ -498,7 +506,7 @@ for s = 1, screen.count() do
     right_layout:add(arr6)
     --right_layout:add(volumeicon)
     right_layout:add(volume)
-    right_layout:add(arr5)
+    --right_layout:add(arr5)
     --right_layout:add(brightnessIcon)
     right_layout:add(brightnessBgWidget)
     right_layout:add(arr4)
@@ -509,8 +517,8 @@ for s = 1, screen.count() do
     right_layout:add(batwidget)
     right_layout:add(arr3)
     --right_layout:add(neticon)
-    right_layout:add(netwidget)
-    right_layout:add(arr2)
+    --right_layout:add(netwidget)
+    --right_layout:add(arr2)
     --right_layout:add(clockicon)
     right_layout:add(tdwidget)
     right_layout:add(arr1)
@@ -563,7 +571,8 @@ globalkeys = awful.util.table.join(
     awful.key({modkey}, "F2", function() awful.screen.focus(1) end),
 
     --Run menu
-    awful.key({modkey}, "r", function() mypromptbox[mouse.screen]:run() end),
+    --awful.key({modkey}, "r", function() mypromptbox[mouse.screen]:run() end),
+    awful.key({modkey}, "r", function() menubar.show() end),
 
     --Programs
     awful.key({modkey, }, "Return", function() awful.util.spawn(terminal) end),
@@ -764,6 +773,42 @@ client.connect_signal("manage", function (c, startup)
         awful.titlebar(c):set_widget(layout)
     end
 end)
+
+-- battery warning
+local function trim(s)
+  return s:find'^%s*$' and '' or s:match'^%s*(.*%S)'
+end
+
+local function bat_notification()
+    capFile = io.open("/sys/class/power_supply/BAT0/capacity", "r")
+    statusFile = io.open("/sys/class/power_supply/BAT0/status", "r")
+
+    if(capFile == nil or statusFile == nil) then
+        --Making sure the file exists
+        return
+    end
+
+	local f_capacity = capFile
+    local f_status = statusFile
+	local bat_capacity = tonumber(f_capacity:read("*all"))
+	local bat_status = trim(f_status:read("*all"))
+
+	if (bat_capacity <= 10 and bat_status == "Discharging") then
+		naughty.notify({ title      = "Battery Warning"
+		    , text       = "Battery low! " .. bat_capacity .."%" .. " left!"
+		    , fg="#ffffff"
+		    , bg="#C91C1C"
+		    , timeout    = 15
+		    , position   = "bottom_right"
+		})
+	end
+end
+
+battimer = timer({timeout = 60})
+battimer:connect_signal("timeout", bat_notification)
+battimer:start()
+
+-- end here for battery warning
 
 
 

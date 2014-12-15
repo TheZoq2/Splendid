@@ -4,7 +4,6 @@
 
 require("style")
 
-
 theme = {}
 
 -- Todo:  Change the $USER to yourself.
@@ -17,9 +16,12 @@ theme.bg_focus      = "#1E2320"
 theme.bg_urgent     = "#3F3F3F"
 theme.bg_systray    = theme.bg_normal
 
-theme.fg_normal     = "#AAAAAA"
-theme.fg_focus      = "#0099CC"
-theme.fg_urgent     = "#3F3F3F"
+--theme.fg_normal     = "#AAAAAA"
+--theme.fg_focus      = "#0099CC"
+--theme.fg_urgent     = "#3F3F3F"
+theme.fg_normal = style.foregroundUnfocus
+theme.fg_focus = style.foregroundMain
+theme.fg_urgent     = style.foregroundMain
 
 theme.border_width  = 1
 theme.border_normal = "#000000"
@@ -27,6 +29,8 @@ theme.border_focus  = "#535d6c"
 theme.border_marked = "#91231c"
 theme.border_normal = style.foregroundUnfocus
 theme.border_focus = style.foregroundMain
+
+theme.icon_theme = "numix" -- Replace the string for the theme you want to use 
 
 -- There are other variable sets
 -- overriding the default one when
@@ -82,14 +86,21 @@ theme.titlebar_maximized_button_focus_active  = "/usr/share/awesome/themes/defau
 --theme.wallpaper = pathToConfig .. "redtree_edit.jpg"
 --theme.wallpaper = pathToConfig .. "mountain1.jpg"
 --theme.wallpaper = pathToConfig .. "cubes.jpg"
-theme.wallpaper = pathToConfig .. "whitePoly.jpg"
+--theme.wallpaper = pathToConfig .. "whitePoly.jpg"
+theme.wallpaper = pathToConfig .. "LTPlanet.png"
 
 -- You can use your own layout icons like this:
-theme.layout_floating  = pathToConfig .. "powerarrowf/layouts/floating.png"
+--theme.layout_floating  = pathToConfig .. "powerarrowf/layouts/floating.png"
 theme.layout_tilebottom = pathToConfig .. "/powerarrowf/layouts/tilebottom.png"
 theme.layout_tileleft   = pathToConfig .. "powerarrowf/layouts/tileleft.png"
 theme.layout_tile = pathToConfig .. "powerarrowf/layouts/tile.png"
 theme.layout_tiletop = pathToConfig .. "powerarrowf/layouts/tiletop.png"
+
+theme.layout_floating  = pathToConfig .. "icons/LayoutFloating.png"
+theme.layout_termfair = pathToConfig .. "icons/LayoutTile.png"
+theme.layout_uselesstile = pathToConfig .. "icons/LayoutRight.png"
+theme.layout_uselessfair = pathToConfig .. "icons/LayoutLeft.png"
+theme.layout_tile = pathToConfig .. "icons/LayoutMaxi.png"
 
 
 
