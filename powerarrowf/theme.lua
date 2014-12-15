@@ -21,7 +21,10 @@ theme.bg_systray    = theme.bg_normal
 --theme.fg_urgent     = "#3F3F3F"
 theme.fg_normal = style.foregroundUnfocus
 theme.fg_focus = style.foregroundMain
-theme.fg_urgent     = style.foregroundMain
+theme.fg_urgent     = style.foregroundUnfocus
+
+theme.fg_urgent = style.urgentFg
+theme.bg_urgent = style.urgentBg
 
 theme.border_width  = 1
 theme.border_normal = "#000000"
@@ -117,7 +120,8 @@ theme.arr8 = pathToConfig .. "powerarrowf/icons/arr8.png"
 theme.arr9 = pathToConfig .. "powerarrowf/icons/arr9.png"
 
 -- The clock icon:
-theme.clock = pathToConfig .. "powerarrowf/icons/myclocknew.png"
+--theme.clock = pathToConfig .. "powerarrowf/icons/myclocknew.png"
+theme.clock = pathToConfig .. "icons/clock.png"
 
 --{{ For the wifi widget icons }} --
 theme.nethigh = pathToConfig .. "powerarrowf/icons/nethigh.png"
@@ -125,7 +129,8 @@ theme.netmedium = pathToConfig .. "powerarrowf/icons/netmedium.png"
 theme.netlow = pathToConfig .. "powerarrowf/icons/netlow.png"
 
 --{{ For the battery icon }} --
-theme.baticon = pathToConfig .. "powerarrowf/icons/battery.png"
+--theme.baticon = pathToConfig .. "powerarrowf/icons/battery.png"
+theme.baticon = pathToConfig .. "icons/Batt.png"
 
 --{{ For the hard drive icon }} --
 theme.fsicon = pathToConfig .. "powerarrowf/icons/hdd.png"
@@ -135,10 +140,17 @@ theme.mute = pathToConfig .. "powerarrowf/icons/mute.png"
 theme.music = pathToConfig .. "powerarrowf/icons/music.png"
 
 --{{ For the volume icon }} --
+--[[
 theme.mute = pathToConfig .. "powerarrowf/icons/volmute.png"
 theme.volhi = pathToConfig .. "powerarrowf/icons/volhi.png"
 theme.volmed = pathToConfig .. "powerarrowf/icons/volmed.png"
 theme.vollow = pathToConfig .. "powerarrowf/icons/vollow.png"
+]]--
+
+theme.mute = pathToConfig .. "icons/VolMute.png"
+theme.volhi = pathToConfig .. "icons/VolHigh.png"
+theme.volmed = pathToConfig .. "icons/VolMed.png"
+theme.vollow = pathToConfig .. "icons/VolLow.png"
 
 --{{ For the CPU icon }} --
 theme.cpuicon = pathToConfig .. "powerarrowf/icons/cpu.png"

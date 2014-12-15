@@ -276,9 +276,29 @@ end, 0.3, "Master")
 
 
 --{{---| CPU / sensors widget |-----------
-cpuwidget = wibox.widget.textbox()
-vicious.register(cpuwidget, vicious.widgets.cpu,
-'<span background="' .. style.backgroundColor .. '" font="Inconsolata 11"> <span font="Inconsolata 11" color="' .. style.foregroundMain .. '">$2%<span color="' .. style.foregroundMain .. '">·</span>$3% </span></span>', 5)
+--cpuwidget = wibox.widget.textbox()
+--vicious.register(cpuwidget, vicious.widgets.cpu,
+--'<span background="' .. style.backgroundColor .. '" font="Inconsolata 11"> <span font="Inconsolata 11" color="' .. style.foregroundMain .. '">$2%<span color="' .. style.foregroundMain .. '">·</span>$3% </span></span>', 5)
+
+-- Initialize widget
+graph_width = 20
+graph_height = 14
+
+cpuGraph = awful.widget.graph()
+-- Graph properties
+cpuGraph:set_width(30)
+cpuGraph:set_height(graph_height)
+cpuGraph:set_background_color(style.backgroundColor)
+cpuGraph:set_color(style.foregroundMain)
+cpuGraph:set_border_color(style.foregroundUnfocus)
+
+--register the widget
+vicious.register(cpuGraph, vicious.widgets.cpu, "$1")
+
+cpuwidget = wibox.layout.margin()
+cpuwidget:set_margins(2)
+cpuwidget:set_widget(cpuGraph)
+--cpuwidget:fit(graph_width + 5, graph_height)
 
 cpuicon = wibox.widget.imagebox()
 cpuicon:set_image(beautiful.cpuicon)
@@ -360,9 +380,12 @@ function getBrightness()
     return brightVal
 end
 function updateBrightnessWidget()
-    if(not getBrightness() == nil) then
-        brightnessWidget:set_text("" .. getBrightness() .. " ");
+    brightness = getBrightness()
+    if(brightness == nil) then
+            brightness = 100
     end
+
+    brightnessWidget:set_text("" .. brightness .. " ");
 end
 function changeBrightness(amount)
     flag = "-inc"
@@ -504,22 +527,22 @@ for s = 1, screen.count() do
     right_layout:add(cpuwidget)
     right_layout:add(tempBgWidget)
     right_layout:add(arr6)
-    --right_layout:add(volumeicon)
+    right_layout:add(volumeicon)
     right_layout:add(volume)
-    --right_layout:add(arr5)
-    --right_layout:add(brightnessIcon)
+    right_layout:add(arr5)
+    right_layout:add(brightnessIcon)
     right_layout:add(brightnessBgWidget)
     right_layout:add(arr4)
     --right_layout:add(fsicon)
     --right_layout:add(fswidget)
     --right_layout:add(kbdcfg);
-    --right_layout:add(baticon)
+    right_layout:add(baticon)
     right_layout:add(batwidget)
     right_layout:add(arr3)
     --right_layout:add(neticon)
     --right_layout:add(netwidget)
     --right_layout:add(arr2)
-    --right_layout:add(clockicon)
+    right_layout:add(clockicon)
     right_layout:add(tdwidget)
     right_layout:add(arr1)
     right_layout:add(mylayoutbox[s])
@@ -613,7 +636,9 @@ globalkeys = awful.util.table.join(
 
     --Window modification keys
     awful.key({modkey, "Shift"}, "j", function() awful.tag.incmwfact(-0.05) end),
-    awful.key({modkey, "Shift"}, "k", function() awful.tag.incmwfact(-0.05) end)
+    awful.key({modkey, "Shift"}, "k", function() awful.tag.incmwfact(-0.05) end),
+
+    awful.key({ }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/Picture/screenshots/ 2>/dev/null'") end)
 )
 
 for i=0, 9 do
