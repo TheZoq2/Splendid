@@ -571,22 +571,22 @@ globalkeys = awful.util.table.join(
     --Vim like controlls
     awful.key({modkey, }, "l",
         function()
-            awful.client.focus.bydirection("right")
+            awful.client.focus.global_bydirection("right")
             if(client.focus) then client.focus:raise() end
         end),
     awful.key({modkey, }, "h",
         function()
-            awful.client.focus.bydirection("left")
+            awful.client.focus.global_bydirection("left")
             if(client.focus) then client.focus:raise() end
         end),
     awful.key({modkey, }, "j",
         function()
-            awful.client.focus.bydirection("down")
+            awful.client.focus.global_bydirection("down")
             if(client.focus) then client.focus:raise() end
         end),
     awful.key({modkey, }, "k",
         function()
-            awful.client.focus.bydirection("up")
+            awful.client.focus.global_bydirection("up")
             if(client.focus) then client.focus:raise() end
         end),
 
@@ -601,7 +601,7 @@ globalkeys = awful.util.table.join(
     awful.key({modkey, }, "Return", function() awful.util.spawn(terminal) end),
 
     --Layout keys
-    awful.key({"Control", }, "space", awful.client.floating.toggle),
+    awful.key({modkey, }, "space", awful.client.floating.toggle),
     --Layout change
     awful.key({modkey,}, "o", function() awful.layout.inc(layouts, 1) end),
     awful.key({modkey,}, "p", function() awful.layout.inc(layouts, -1) end),
