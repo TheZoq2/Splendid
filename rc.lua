@@ -158,20 +158,27 @@ end
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ 1, 2, 3, 4, 5}, s, layouts[2])
+    tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7}, s, layouts[2])
 end
 -- }}}
 
 -- {{{ Menu
 -- Create a laucher widget and a main menu
 systemMenu = {
-        {"Shutdown", function() os.execute("poweroff"); end},
+            {"Shutdown", function() os.execute("poweroff"); end},
         {"Reboot", function() os.execute("reboot"); end}
     }
 
+screenMenu = {
+    {"Single monitor", function() os.execute("/opt/bin/singleMonitor.sh"); end},
+    {"Dual monitor", function() os.execute("/opt/bin/dualMonitor.sh"); end},
+    {"Projector", function() os.execute("/opt/bin/projektor.sh"); end}
+}
+
 myawesomemenu = {
-   { "manual", terminal .. " -e man awesome" },
+   --{ "manual", terminal .. " -e man awesome" },
    { "edit config", editor_cmd .. " " .. awesome.conffile },
+   { "screen", screenMenu},
    { "restart", awesome.restart },
    { "quit", awesome.quit },
    --{ "shutdown", "shutdown"}
@@ -373,17 +380,19 @@ function getBrightness()
     local brightStr = handle:read("*a")
     handle:close()
     --Strip the decimals
-    if(not brightVal == nil) then
-        brightVal = math.ceil(tonumber(brightStr))
+    if(brightVal == nil) then
+        brightVal = 100
     end
-    
+
+    brightVal = math.ceil(tonumber(brightStr))
+
     return brightVal
 end
 function updateBrightnessWidget()
     brightness = getBrightness()
-    if(brightness == nil) then
-            brightness = 100
-    end
+    --if(brightness == nil) then
+    --        brightness = 100
+    --end
 
     brightnessWidget:set_text("" .. brightness .. " ");
 end
@@ -601,7 +610,7 @@ globalkeys = awful.util.table.join(
     awful.key({modkey, }, "Return", function() awful.util.spawn(terminal) end),
 
     --Layout keys
-    awful.key({"Control", }, "space", awful.client.floating.toggle),
+    awful.key({modkey, }, "space", awful.client.floating.toggle),
     --Layout change
     awful.key({modkey,}, "o", function() awful.layout.inc(layouts, 1) end),
     awful.key({modkey,}, "p", function() awful.layout.inc(layouts, -1) end),
